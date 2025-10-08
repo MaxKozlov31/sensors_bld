@@ -45,7 +45,6 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = EventFilter
-    # filterset_fields = ['temperature', 'humidity', 'sensor']
     ordering_fields = ['created_at', 'temperature', 'humidity', 'id']
 
 
@@ -58,23 +57,14 @@ class LoadEventsAPIView(APIView):
         serializer.is_valid(raise_exception=True)
 
         upload = serializer.validated_data['json_file']
-        # default_type = serializer.validated_data.get("default_sensor_type", 1)
-
         try:
             valid_events, parse_errors = EventDataParser.parse_json_file(upload.file)
-            # if errors:
-            #     return Response(
-            #         {"detail": "Ошибки валидации", "errors": errors},
-            #         status=status.HTTP_400_BAD_REQUEST,
-            #     )
 
             sensor_ids = {event['sensor_id'] for event in valid_events}
-            # sensors_map = SensorService.get_or_create_sensors(sensor_ids)
             existing_sensors = Sensor.objects.filter(id__in=sensor_ids)
             existing_sensors_map = {sensor.id: sensor for sensor in existing_sensors}
 
             created_count, sensor_errors = EventService.bulk_create_events(valid_events, existing_sensors_map)
-
             all_errors = parse_errors + sensor_errors
 
             status_code = status.HTTP_201_CREATED if created_count > 0 else status.HTTP_400_BAD_REQUEST

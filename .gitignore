@@ -11,3 +11,7 @@ staticfiles/
 .dockerignore
 .pytest_cache/
 *.db
+.DS_store
+.mypy_cache
+.ruff_cache
+.coverage
