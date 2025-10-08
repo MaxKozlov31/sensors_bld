@@ -1,0 +1,85 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    "migrations",
+    "staticfiles",
+    "*.pyc",
+]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings  
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # bugbear
+    "C4",  # comprehensions
+    "UP",  # pyupgrade
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*.py" = [
+    "I001",  # Ignore import sorting in tests
+]
+# Игнорировать некоторые проверки в миграциях
+"**/migrations/*.py" = [
+    "F401",  # unused imports
+    "PLR2004", # magic values
+    "S608",  # hardcoded SQL
+]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 120
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "single"
+inline-quotes = "single"
+multiline-quotes = "single"
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+combine-as-imports = true
+force-single-line = true
+lines-after-imports = 2
+lines-between-types = 1
+known-first-party = ["sensors"]
+
+[tool.ruff.lint.pylint]
+max-args = 10
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+disallow_incomplete_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+exclude = [
+    '.venv',
+    'venv', 
+    '__pycache__',
+    'migrations',
+    'staticfiles',
+]
+
+[[tool.mypy.overrides]]
+module = [
+    "django.*",
+    "rest_framework.*", 
+    "drf_yasg.*",
+    "django_filters.*",
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 120
+target-version = ['py312']

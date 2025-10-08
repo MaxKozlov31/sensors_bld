@@ -1,0 +1,13 @@
+venv/
+.venv/
+.env
+logs/
+container_data/
+/static/
+__pycache__/
+media/
+staticfiles/
+.vscode/
+.dockerignore
+.pytest_cache/
+*.db

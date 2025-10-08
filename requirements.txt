@@ -1,0 +1,13 @@
+black==24.8.0
+Django==5.2
+djangorestframework==3.15.2
+django-filter==25.2
+drf-yasg==1.21.11
+psycopg2-binary==2.9.9
+uvicorn==0.37.0
+ruff==0.14.0
+mypy==1.18.2
+pytest==7.4.0
+pytest-django==4.5.2
+pytest-cov==4.1.0
+factory-boy==3.3.0
