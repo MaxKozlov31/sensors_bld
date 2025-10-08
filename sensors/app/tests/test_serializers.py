@@ -57,7 +57,7 @@ class TestEventSerializer:
         )
         data = {
             "sensor": sensor.id,
-            "name": "Test Event", 
+            "name": "Test Event",
             "temperature": "invalid"
         }
         serializer = EventSerializer(data=data)
